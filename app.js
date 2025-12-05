@@ -41,8 +41,6 @@ app.use('/bill', billRoute);
 app.use('/billdetails',billdetailsRoute);
 
 
-
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -59,7 +57,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-mongoose.connect('mongodb://127.0.0.1:27017/ASM')
+mongoose.connect('mongodb+srv://vodaiminhtri_db_user:mA92WHmQPYekn83w@cluster0.6hoybse.mongodb.net/Asm')
   .then(() => console.log('>>>>>>>>>> DB Connected!!!!!!'))
   .catch(err => console.log('>>>>>>>>> DB Error: ', err));
 
