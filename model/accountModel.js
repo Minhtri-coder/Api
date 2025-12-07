@@ -6,6 +6,8 @@ const account = new Schema({
      email: { type: String},
       password: { type: String},
        fullname: { type: String},
+        Role:{type:String},
+       Status:{type:Number},
        AccountID: {type: ObjectId, ref:"billModel"},
 });
 

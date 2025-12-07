@@ -10,5 +10,9 @@ router.post('/add-category',async function(req,res){
     res.status(200).json({status: true, message: "thêm thể loại"})
 })
 
+router.get('/all-category',async function(req,res){
+    const list = await categorytModel.find()
+    res.status(200).json({status: true, message: "thể loại",data: list})
+})
 
 module.exports = router;

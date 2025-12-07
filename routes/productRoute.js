@@ -4,8 +4,10 @@ const productModel = require('../model/productModel');
 
 
 router.post('/add-product',async function(req,res){
-   const {name,description,price,cateID} = req.body
-   const newProduct = {name,description,price,cateID};
+   const {name,description,price,quantity,status,cateID} = req.body
+    const createAt = new Date();
+    const updateAt = new Date();
+   const newProduct = {name,description,price,quantity,status,createAt,updateAt,cateID};
    await productModel.create(newProduct);
        res.status(200).json({status: true, message: "thêm sản phẩm thành công"})
 })
