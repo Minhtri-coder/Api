@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const accountModel = require("../model/accountModel");
+const bcrypt = require('bcrypt');
 
 //1:đăng ký
 router.post("/register", async function (req, res) {
@@ -21,7 +22,9 @@ router.get("/all-account", async function (req, res) {
 
 
 // 1.1:đăng nhập
-router.get("/login", async function (req, res) {
+router.post("/login", async function (req, res) {
+  console.log("CLIENT EMAIL:", `"${req.body.email}"`);
+  console.log("CLIENT PASS:", `"${req.body.password}"`);
   const { email, password } = req.body;
   const users = await accountModel.findOne({email, password});
   if(!users){
