@@ -62,7 +62,6 @@ router.put("/updater-account", async function (req, res) {
       });
     }
     const newPassword = Math.random().toString(36).slice(-8);
-    user.password = newPassword;
     const contenhtml = ` <div style="font-family: Arial; padding: 10px;">
           <h2>Khôi phục mật khẩu</h2>
           <p>Mật khẩu mới của bạn là:</p>
@@ -70,15 +69,16 @@ router.put("/updater-account", async function (req, res) {
           <p>Vui lòng đăng nhập và đổi lại mật khẩu.</p>
         </div>`
     
-    await user.save();
-      const {to, subject, content} = req.body
+    
       const emailotp = {
           from: "Đổi mật khẩu <vodaiminhtri@gmail.com>",
           to: email,
-          subject: subject,
+          subject: "khôi phục mật khẩu",
           html: contenhtml
       }
       await sendemail.transporter.sendMail(emailotp);
+       user.password = newPassword;
+       await user.save();
       res.json({status: 1, message: "Gửi mail thành công"});
       } catch (error) {
          res.json({status: 0, message: "Gửi mail thất bại"});
