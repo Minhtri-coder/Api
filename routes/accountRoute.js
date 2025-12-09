@@ -69,7 +69,6 @@ router.put("/updater-account", async function (req, res) {
           <p>Vui lòng đăng nhập và đổi lại mật khẩu.</p>
         </div>`
     
-    
       const emailotp = {
           from: "Đổi mật khẩu <vodaiminhtri@gmail.com>",
           to: email,
