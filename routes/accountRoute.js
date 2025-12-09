@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const accountModel = require("../model/accountModel");
 const bcrypt = require('bcrypt');
+const sendemail = require('../utils/mail');
+const html = require("swagger-ui/dist/oauth2-redirect.html");
 
 //1:đăng ký
 router.post("/register", async function (req, res) {
@@ -47,6 +49,41 @@ router.put("/updater-account", async function (req, res) {
     item.name = AccountID ? AccountID : item.AccountID;
   }
 });
+
+//3:Quên mật khẩu
+  router.post("/forget-pass", async function(req,res){
+      try {
+        const {email} = req.body;
+        const user = await accountModel.findOne({email});
+         if (!user) {
+      return res.status(400).json({
+        status: false,
+        message: "Email không tồn tại trong hệ thống"
+      });
+    }
+    const contenhtml = ` <div style="font-family: Arial; padding: 10px;">
+          <h2>Khôi phục mật khẩu</h2>
+          <p>Mật khẩu mới của bạn là:</p>
+          <h3 style="color: blue">${newPassword}</h3>
+          <p>Vui lòng đăng nhập và đổi lại mật khẩu.</p>
+        </div>`
+    const newPassword = Math.random().toString(36).slice(-8);
+    user.password = newPassword;
+    await user.save();
+      const {to, subject, content} = req.body
+      const emailotp = {
+          from: "Đổi mật khẩu <vodaiminhtri@gmail.com>",
+          to: email,
+          subject: subject,
+          html: contenhtml
+      }
+      await sendemail.transporter.sendMail(emailotp);
+      res.json({status: 1, message: "Gửi mail thành công"});
+      } catch (error) {
+         res.json({status: 1, message: "Gửi mail thất bại"});
+      }
+  })
+
 
 //2:thay đổi thông tin người dùng
 
