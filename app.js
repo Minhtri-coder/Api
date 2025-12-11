@@ -59,7 +59,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-mongoose.connect('mongodb+srv://vodaiminhtri_db_user:mA92WHmQPYekn83w@cluster0.6hoybse.mongodb.net/Asm')
+mongoose.connect('mongodb://localhost:27017/ASM')
   .then(() => console.log('>>>>>>>>>> DB Connected!!!!!!'))
   .catch(err => console.log('>>>>>>>>> DB Error: ', err));
 

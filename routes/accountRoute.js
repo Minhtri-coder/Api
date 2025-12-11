@@ -3,6 +3,7 @@ const router = express.Router();
 const accountModel = require("../model/accountModel");
 const bcrypt = require('bcrypt');
 const sendemail = require('../utils/mail');
+const sgMail = require('@sendgrid/mail');
 // const html = require("swagger-ui/dist/oauth2-redirect.html");
 
 //1:đăng ký
