@@ -20,6 +20,7 @@ var categoryRoute = require('./routes/categoryRoute');
 var productRoute = require('./routes/productRoute');
 var billRoute = require('./routes/billRoute');
 var billdetailsRoute = require('./routes/billdetailsRoute');
+var vacineRoute = require('./routes/vacineRoute');
 var app = express();
 
 // view engine setup
@@ -41,7 +42,7 @@ app.use('/category', categoryRoute);
 app.use('/product', productRoute);
 app.use('/bill', billRoute);
 app.use('/billdetails',billdetailsRoute);
-
+app.use('/vacine',vacineRoute);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -59,7 +60,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-mongoose.connect('mongodb://localhost:27017/ASM')
+mongoose.connect('mongodb+srv://vodaiminhtri_db_user:mA92WHmQPYekn83w@cluster0.6hoybse.mongodb.net/Asm')
   .then(() => console.log('>>>>>>>>>> DB Connected!!!!!!'))
   .catch(err => console.log('>>>>>>>>> DB Error: ', err));
 
