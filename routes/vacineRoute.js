@@ -26,6 +26,39 @@ router.get("/list", async (req, res) => {
   }
 });
 
+// router.delete("/delete", async (req, res) => {
+//   try {
+//     const { id } = req.query;
+//     const result = await vacinetRouter.findById(id);
+//     if (!result) {
+//       return res.status(404).json({
+//         status: false,
+//         message: "Không tìm thấy vaccine"
+//       });
+//     }
+//     res.status(200).json({status: true,message: "Xóa vaccine thành công"});
+//   } catch (error) {res.status(500).json({status: false,message: "Xóa vaccine thất bại",error: error.message});
+//   }
+// });
+
+router.delete("/delete/:id", async function (req, res) {
+
+    const { id } = req.params;
+    const item = await vacinetRouter.findById(id);
+
+    if (item) {
+         await vacinetRouter.findByIdAndDelete(id);
+      return res.status(200).json({
+        status: false,
+        message: "Xoá thành công"
+      });
+    }else{
+         return res.status(200).json({
+        status: false,
+        message: "Xoá thất bại"
+      });
+    }
+  });
 
 //post vacine
 router.post('/add-vacine', async function(req,res){
